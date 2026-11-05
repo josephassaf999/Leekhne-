@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leekhne – Leekha Score & Card Tracker</title>
+<meta name="description" content="Leekhne is a Flutter app for tracking scores and played cards in the card game Leekha.">
+<style>
+  :root{
+    --ink:#173D32; --felt:#214C3D; --paper:#F6F3EC; --muted:#81877F;
+    --gold:#E4BD75; --red:#BD514A; --line:#E8E3D9; --white:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:Inter,"Segoe UI",Roboto,-apple-system,Helvetica,Arial,sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+
+  /* Nav */
+  nav{position:sticky;top:0;z-index:20;background:rgba(246,243,236,.88);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.18em;font-size:14px;text-decoration:none}
+  .logo{width:34px;height:34px;border-radius:11px;background:var(--ink);color:var(--red);
+    display:grid;place-items:center;font-size:19px;line-height:1}
+  nav ul{display:flex;gap:26px;list-style:none;font-size:14px;font-weight:600}
+  nav ul a{text-decoration:none;color:var(--muted);transition:color .2s}
+  nav ul a:hover{color:var(--ink)}
+
+  /* Hero */
+  .hero{background:var(--felt);color:#fff;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(900px 400px at 85% 10%,rgba(228,189,117,.16),transparent 60%),
+               radial-gradient(700px 400px at 0% 100%,rgba(0,0,0,.25),transparent 60%)}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;
+    align-items:center;padding:84px 0 0}
+  .eyebrow{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;
+    color:var(--gold);background:rgba(255,255,255,.1);padding:7px 13px;border-radius:30px}
+  h1{font-size:clamp(40px,6vw,68px);line-height:1.04;font-weight:900;margin:20px 0 18px;letter-spacing:-.02em}
+  h1 span{color:var(--gold)}
+  .hero p.lead{font-size:18px;color:rgba(255,255,255,.78);max-width:520px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  .tag{font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px;
+    border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.9)}
+  .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:30px;
+    font-weight:800;font-size:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.gold{background:var(--gold);color:var(--ink);box-shadow:0 8px 20px rgba(0,0,0,.2)}
+  .btn.ghost{border:1px solid rgba(255,255,255,.45);color:#fff}
+  .hero-phones{position:relative;height:520px;display:flex;justify-content:center;align-items:flex-end}
+  .hero-phones .phone{position:absolute;bottom:-60px;width:250px}
+  .hero-phones .phone.back{transform:translateX(-110px) rotate(-6deg);opacity:.92;width:225px}
+  .hero-phones .phone.front{transform:translateX(70px);z-index:2}
+
+  /* Phone frame */
+  .phone{background:#0f1f19;border-radius:34px;padding:9px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.45),0 0 0 1.5px rgba(255,255,255,.08) inset}
+  .screen{border-radius:26px;overflow:hidden;background:#e9e5da;aspect-ratio:784/1600;position:relative}
+  .screen img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Sections */
+  section{padding:96px 0}
+  .kicker{font-size:12px;font-weight:900;letter-spacing:.18em;color:var(--red);margin-bottom:10px}
+  h2{font-size:clamp(28px,4vw,42px);line-height:1.12;font-weight:900;letter-spacing:-.015em;max-width:640px}
+  .sub{color:var(--muted);font-size:17px;margin-top:14px;max-width:600px}
+
+  /* Features */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:26px;
+    transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 36px -18px rgba(23,61,50,.3)}
+  .icon{width:46px;height:46px;border-radius:14px;background:var(--ink);color:var(--gold);
+    display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+  .card h3{font-size:17px;font-weight:800;margin-bottom:6px}
+  .card p{font-size:14.5px;color:var(--muted)}
+
+  /* Gallery */
+  .gallery-bg{background:#EFEBE2}
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:56px 32px;margin-top:56px}
+  figure{display:flex;flex-direction:column;align-items:center;text-align:center}
+  figure .phone{width:min(260px,100%);cursor:zoom-in;transition:transform .25s}
+  figure .phone:hover{transform:translateY(-6px)}
+  figcaption{margin-top:20px;max-width:260px}
+  figcaption b{display:block;font-size:16px;font-weight:800}
+  figcaption span{font-size:14px;color:var(--muted)}
+
+  /* Rules strip */
+  .rules{background:var(--ink);color:#fff;border-radius:28px;padding:48px;
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .rules h2{color:#fff}
+  .rules p{color:rgba(255,255,255,.75);margin-top:14px}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .stat{background:rgba(255,255,255,.08);border-radius:18px;padding:20px}
+  .stat b{display:block;font-size:34px;color:var(--gold);font-weight:900;line-height:1}
+  .stat span{font-size:12px;letter-spacing:.1em;font-weight:700;color:rgba(255,255,255,.65)}
+
+  /* Tech */
+  .tech{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+  .chip{background:var(--white);border:1px solid var(--line);padding:9px 16px;border-radius:30px;font-weight:700;font-size:14px}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  /* Lightbox */
+  .lb{position:fixed;inset:0;background:rgba(10,20,16,.9);display:none;place-items:center;z-index:50;padding:20px;cursor:zoom-out}
+  .lb.open{display:grid}
+  .lb img{max-height:92vh;max-width:92vw;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;padding-top:60px}
+    .hero-phones{height:430px}
+    .features,.gallery{grid-template-columns:1fr 1fr}
+    .rules{grid-template-columns:1fr;padding:32px}
+    nav ul{display:none}
+  }
+  @media (max-width:600px){
+    section{padding:64px 0}
+    .features,.gallery{grid-template-columns:1fr}
+    .hero-phones .phone{width:200px}
+    .hero-phones .phone.back{width:180px;transform:translateX(-85px) rotate(-6deg)}
+    .hero-phones .phone.front{transform:translateX(55px)}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="logo">♥</span>LEEKHNE</a>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#screens">Screenshots</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#tech">Tech</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">MOBILE APP · FLUTTER</span>
+      <h1>Keep score.<br><span>Track every card.</span></h1>
+      <p class="lead">Leekhne is a clean companion app for the card game Leekha. It handles the maths of every round and remembers which cards have already hit the table.</p>
+      <div class="tags">
+        <span class="tag">Score Tracker</span>
+        <span class="tag">Card Tracker</span>
+        <span class="tag">Double Leekha</span>
+        <span class="tag">4 Players</span>
+      </div>
+      <div class="cta">
+        <a class="btn gold" href="#screens">See the app →</a>
+        <!-- Replace # with your repo link -->
+        <a class="btn ghost" href="https://github.com/josephassaf999">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-phones">
+      <div class="phone back"><div class="screen"><img src="https://github.com/user-attachments/assets/f1127ba9-0195-4124-9706-5e0e7904af27" alt="Card tracker screen"></div></div>
+      <div class="phone front"><div class="screen"><img src="https://github.com/user-attachments/assets/10aaa69b-09f2-492b-a1db-5b33faec9f96" alt="Score tracker screen"></div></div>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <div class="kicker">FEATURES</div>
+    <h2>Everything a Leekha table needs, nothing it doesn't.</h2>
+    <p class="sub">Built to be used mid-game: big tap targets, instant results and a calm, card-table look.</p>
+    <div class="features">
+      <div class="card"><div class="icon">36</div><h3>Auto-calculated scores</h3><p>Enter three scores and leave one blank. The app works out the fourth so every round adds up to exactly 36 points.</p></div>
+      <div class="card"><div class="icon">♠</div><h3>Live 52-card tracker</h3><p>Tap a card as it is played. Played cards fade out and a counter shows how many are left in the deck.</p></div>
+      <div class="card"><div class="icon">+37</div><h3>Double Leekha</h3><p>One tap adds 37 points to the right player, ends the round and resets the card tracker.</p></div>
+      <div class="card"><div class="icon">★</div><h3>Leader highlight</h3><p>The player with the lowest score gets a star, since in Leekha lower is better.</p></div>
+      <div class="card"><div class="icon">✎</div><h3>Round history</h3><p>Review the most recent rounds at a glance, with penalty points highlighted in red.</p></div>
+      <div class="card"><div class="icon">↻</div><h3>Quick new game</h3><p>Start fresh and either reuse the previous player names or enter new ones.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-bg" id="screens">
+  <div class="wrap">
+    <div class="kicker">SCREENSHOTS</div>
+    <h2>A closer look.</h2>
+    <p class="sub">Tap any screen to enlarge it.</p>
+    <div class="gallery">
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/10aaa69b-09f2-492b-a1db-5b33faec9f96" alt="Score tracker"></div></div>
+        <figcaption><b>Score Tracker</b><span>All four players, round counter and quick actions in one view.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/5ada9366-2488-41cf-98a6-3da89fbb22df" alt="Add round scores dialog"></div></div>
+        <figcaption><b>Add Round Scores</b><span>Leave one field blank and the app calculates it for you.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/f1127ba9-0195-4124-9706-5e0e7904af27" alt="Card tracker"></div></div>
+        <figcaption><b>Card Tracker</b><span>Mark cards as they are played, suit by suit.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/73139bad-ee48-443d-be22-ad55030e8581" alt="New game dialog"></div></div>
+        <figcaption><b>New Game Setup</b><span>Reuse the last names or type in a new group of players.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/27ecba9e-9619-4ccd-ba5c-cc4a9713a51b" alt="Navigation drawer"></div></div>
+        <figcaption><b>Navigation</b><span>A simple drawer to switch between scores, cards and settings.</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><div class="screen"><img src="https://github.com/user-attachments/assets/619cc17e-8fd2-40d4-b677-1d3d5867c198" alt="Settings"></div></div>
+        <figcaption><b>Settings</b><span>Optional landscape mode for tablets and wider screens.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="rules">
+      <div>
+        <div class="kicker" style="color:var(--gold)">HOW IT WORKS</div>
+        <h2>Simple rules, built in.</h2>
+        <p>Each round distributes 36 penalty points between the players. Leekhne enforces that total, flags impossible entries and keeps a running tally so nobody has to do mental maths mid-hand.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>36</b><span>POINTS PER ROUND</span></div>
+        <div class="stat"><b>37</b><span>DOUBLE LEEKHA</span></div>
+        <div class="stat"><b>52</b><span>CARDS TRACKED</span></div>
+        <div class="stat"><b>4</b><span>PLAYERS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tech" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker">BUILT WITH</div>
+    <h2>Flutter &amp; Material 3.</h2>
+    <div class="tech">
+      <span class="chip">Flutter</span>
+      <span class="chip">Dart</span>
+      <span class="chip">Material 3</span>
+      <span class="chip">Android</span>
+      <span class="chip">Custom theme</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="y"></span> Joseph Assaf</span>
+    <span>Leekhne – a Leekha score &amp; card tracker</span>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><img alt=""></div>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const lb = document.getElementById('lb'), lbImg = lb.querySelector('img');
+  document.querySelectorAll('figure .screen img').forEach(img => {
+    img.closest('.phone').addEventListener('click', () => {
+      lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+</body>
+</html>
