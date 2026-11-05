@@ -2,9 +2,9 @@
 
 A clean score and card tracker for the card game Leekha. Built with Flutter and Material 3.
 
-<p align="center"> <img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 50" src="https://github.com/user-attachments/assets/62e7068f-e5ee-44e6-b0dc-b5e95f8afc59" />
-<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 51 (2)" src="https://github.com/user-attachments/assets/08028861-1af3-4dcb-acc3-8b52e24da430" />
- <img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 50 (1)" src="https://github.com/user-attachments/assets/91ec32b9-318f-47d6-8cf3-db916062abcf" />
+<p align="center"> <img width="784" height="800" alt="WhatsApp Image 2026-11-05 at 21 51 50" src="https://github.com/user-attachments/assets/62e7068f-e5ee-44e6-b0dc-b5e95f8afc59" />
+<img width="784" height="800" alt="WhatsApp Image 2026-11-05 at 21 51 51 (2)" src="https://github.com/user-attachments/assets/08028861-1af3-4dcb-acc3-8b52e24da430" />
+ <img width="784" height="800" alt="WhatsApp Image 2026-11-05 at 21 51 50 (1)" src="https://github.com/user-attachments/assets/91ec32b9-318f-47d6-8cf3-db916062abcf" />
  </p>
 Features
 Auto-calculated scores: leave one player's score blank and the app works it out so each round totals 36.
