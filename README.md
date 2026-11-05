@@ -16,14 +16,14 @@ Quick new game: reuse previous names or enter new ones.
 Landscape mode: optional, from Settings.
 Screenshots
 Score Tracker	Add Round Scores	Card Tracker
-<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 50" src="https://github.com/user-attachments/assets/10aaa69b-09f2-492b-a1db-5b33faec9f96" />
-	<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 50 (1)" src="https://github.com/user-attachments/assets/5ada9366-2488-41cf-98a6-3da89fbb22df" />
-	<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 51 (2)" src="https://github.com/user-attachments/assets/f1127ba9-0195-4124-9706-5e0e7904af27" />
+<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 50" src="https://github.com/user-attachments/assets/10aaa69b-09f2-492b-a1db-5b33faec9f96" />
+	<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 50 (1)" src="https://github.com/user-attachments/assets/5ada9366-2488-41cf-98a6-3da89fbb22df" />
+	<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 51 (2)" src="https://github.com/user-attachments/assets/f1127ba9-0195-4124-9706-5e0e7904af27" />
 
 New Game	Navigation	Settings
-<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 51 (1)" src="https://github.com/user-attachments/assets/73139bad-ee48-443d-be22-ad55030e8581" />
-	<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 51" src="https://github.com/user-attachments/assets/27ecba9e-9619-4ccd-ba5c-cc4a9713a51b" />
-	<img width="784" height="1600" alt="WhatsApp Image 2026-11-05 at 21 51 51 (3)" src="https://github.com/user-attachments/assets/619cc17e-8fd2-40d4-b677-1d3d5867c198" />
+<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 51 (1)" src="https://github.com/user-attachments/assets/73139bad-ee48-443d-be22-ad55030e8581" />
+	<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 51" src="https://github.com/user-attachments/assets/27ecba9e-9619-4ccd-ba5c-cc4a9713a51b" />
+	<img width="196" height="400" alt="WhatsApp Image 2026-11-05 at 21 51 51 (3)" src="https://github.com/user-attachments/assets/619cc17e-8fd2-40d4-b677-1d3d5867c198" />
 
 Tech
 
